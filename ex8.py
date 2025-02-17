@@ -4,7 +4,7 @@ Após inserir, estes valores na estrutura Trie:
 
 ['casa', 'carro', 'caminhão', 'cachorro', 'cadeira']
 
-Esta e a representação de sua estrutura hierárquica:
+Esta é a representação de sua estrutura hierárquica:
 
                                root
                                  | 
