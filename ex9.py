@@ -1,5 +1,8 @@
 """
 
+A função search() dentro da estrutura Trie percorrerá cada letra dentro da palavra buscada e tentará achar sua ocorrência (conectada com as outras letras). Caso não ache a palavra completa, a função eventualmente retornará False.
+Caso contrário, retornará node.is_end_of_word (True).
+
 """
 
 class TrieNode:

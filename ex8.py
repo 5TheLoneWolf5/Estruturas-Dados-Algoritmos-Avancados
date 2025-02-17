@@ -1,5 +1,31 @@
 """
 
+Após inserir, estes valores na estrutura Trie:
+
+['casa', 'carro', 'caminhão', 'cachorro', 'cadeira']
+
+Esta e a representação de sua estrutura hierárquica:
+
+                               root
+                                 | 
+                                 c
+                                 |
+                                 a
+                               / |  \   \   \
+                             s   r   m   c   d
+                           /     |   |   |   | 
+                          a      r   i   h   e
+                                 |   |   |   |
+                                 o   n   o   i
+                                     |   |   |
+                                     h   r   r
+                                     |   |   |
+                                     ã   r   a
+                                     |   |
+                                     o   o
+
+Como é possível visualizar, a árvore Trie é n-ária, podendo ter n filhos. As aplicações dessa estrutura são diversas, e é uma solução eficiente para guardar e buscar textos.
+
 """
 
 class TrieNode:
@@ -70,6 +96,32 @@ class Trie:
         _dfs(self.root, "", words)
         return words
 
+    def displayUtil(self,visited,node,strin):
+        index=0
+        while index<26:
+            if node.children[index]:
+                strin+=char(97+index)
+                #print(2,str)
+                if node.children[index].isEndOfWord == False:
+                    self.displayUtil(visited,node.children[index],strin)
+                    strin=strin[0 : (len(strin)-1)]
+                else:
+                    if strin not in visited:
+                        visited.append(strin)
+                    if self.haschild(node.children[index]):
+                        self.displayUtil(visited,node.children[index],strin)
+                        strin=strin[0 : (len(strin)-1)]
+                     
+            index+=1
+
+    def display(self):
+        visited=[]
+        strin=''
+        self.displayUtil(visited,self.root,strin)
+        print("Content of Trie:")
+        for i in range(len(visited)):
+            print(visited[i])
+
 trie = Trie()
 trie.insert("casa")
 trie.insert("carro")
@@ -78,3 +130,4 @@ trie.insert("cachorro")
 trie.insert("cadeira")
 
 print(trie.list_words())
+trie.display()

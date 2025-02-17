@@ -1,3 +1,9 @@
+"""
+
+Dada a natureza hierárquica e otimizada para buscas de prefixos em uma estrutura de dados Trie, ela pode ser usada para um sistema de autocomplete com eficiência e clareza em seu propósito.
+
+"""
+
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -53,7 +59,7 @@ class Trie:
             return False
         
         _delete(self.root, word, 0)
-    
+
     def list_words(self):
         
         def _dfs(node, prefix, words):
@@ -65,18 +71,26 @@ class Trie:
         words = []
         _dfs(self.root, "", words)
         return words
+    
+    def suggestions_rec(self, node, word):
+        if node.is_end_of_word:
+            print(word)
+        for a, n in node.children.items():
+            self.suggestions_rec(n, word + a)
+    
+    def print_auto_suggestions(self, key):
+        node = self.root
 
-    def prefix_list_words(self, prefix):
-        
-        def _dfs(node, prefix, words):
-            if node.is_end_of_word and node.:
-                words.append(prefix)
-            for char, child in node.children.items():
-                _dfs(child, prefix + char, words)
+        for a in key:
+            if not node.children.get(a):
+                return 0
+            node = node.children[a]
+            
+        if not node.children:
+            return -1
 
-        words = []
-        _dfs(self.root, prefix, words)
-        return words
+        self.suggestions_rec(node, key)
+        return 1
 
 trie = Trie()
 trie.insert("carro")
@@ -85,4 +99,9 @@ trie.insert("carteira")
 trie.insert("car")
 
 print(trie.list_words())
-print(trie.prefix_list_words("ca"))
+print()
+res = trie.print_auto_suggestions("carr")
+if res == -1:
+    print("Nenhuma outra string encontrada.")
+elif res == 0:
+    print("Nenhuma string encontrada.")

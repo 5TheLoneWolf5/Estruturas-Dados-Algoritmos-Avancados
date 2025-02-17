@@ -1,5 +1,9 @@
 """
 
+Nesta implementação completa de uma árvore Trie, os métodos insert() e search() foram criados.
+
+Dentro da estrutura Trie, é possível armazenar um conjunto de palavras (com insert()) e organizar as letras de forma hierárquica para executar operações de busca com search() de modo eficiente.
+
 """
 
 class TrieNode:

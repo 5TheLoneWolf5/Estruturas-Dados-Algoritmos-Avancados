@@ -9,7 +9,7 @@ Funcionalidade de autocompletar e sugestão,
 Bancos de Dados e
 Motores de Busca.
 
-Para este exercício, estarei implementando a árvore Trie em uma aplicação para um sistema de autocompletar.
+Para este exercício, estarei implementando a árvore Trie em uma aplicação para um sistema de autocompletar ou sugerir palavras.
 
 """
 
@@ -81,6 +81,26 @@ class AutocompleteTrie:
         _dfs(self.root, "", words)
         return words
 
+    def suggestions_rec(self, node, word):
+        if node.is_end_of_word:
+            print(word)
+        for a, n in node.children.items():
+            self.suggestions_rec(n, word + a)
+    
+    def print_auto_suggestions(self, key):
+        node = self.root
+
+        for a in key:
+            if not node.children.get(a):
+                return 0
+            node = node.children[a]
+            
+        if not node.children:
+            return -1
+
+        self.suggestions_rec(node, key)
+        return 1
+
 trie = AutocompleteTrie()
 
 trie.insert("carro")
@@ -89,10 +109,15 @@ trie.insert("carteira")
 trie.insert("car")
 
 print(trie.list_words())
+print()
 
 while True:
     user_input = input("Digite um prefixo ou palavra para autocompletá-la (e verificar outras opções): ")
-    print(f"Resultado: {trie.starts_with(user_input)}")
+    res = trie.print_auto_suggestions(user_input)
+    if res == -1:
+        print("Nenhuma outra string encontrada.")
+    elif res == 0:
+        print("Nenhuma string encontrada.")
     
 """
 print(trie.search("caro"))
